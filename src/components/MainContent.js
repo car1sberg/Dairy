@@ -55,7 +55,7 @@ class MainContent extends React.Component {
                 </div>
                 <div className="commentsBlock">
                     <Switch>
-                        <Route exact path="/" component={Home} />
+                        <Route exact path="/Dairy/" component={Home} />
                         <Route path="/item/:id" render={() => <Comments currentItem={currentItem} />} />
                         {/* it is useless in github.io pages, it handles bad urls itself */}
                         {/* <Route component={BadUrl} /> */}
