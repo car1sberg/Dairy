@@ -5,7 +5,7 @@ import Comments from './Comments';
 import { Route, Switch } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Home from './Home';
-import BadUrl from './BadUrl';
+// import BadUrl from './BadUrl';
 import Items from './Items';
 
 class MainContent extends React.Component {
@@ -57,7 +57,8 @@ class MainContent extends React.Component {
                     <Switch>
                         <Route exact path="/" component={Home} />
                         <Route path="/item/:id" render={() => <Comments currentItem={currentItem} />} />
-                        <Route component={BadUrl} />
+                        {/* it is useless in github.io pages, it handles bad urls itself */}
+                        {/* <Route component={BadUrl} /> */}
                     </Switch>
                 </div>
             </main>
