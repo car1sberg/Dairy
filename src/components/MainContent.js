@@ -43,7 +43,7 @@ class MainContent extends React.Component {
                         <input 
                             className="addItemInput"
                             type="text" 
-                            placeholder="Type name here..."
+                            // placeholder="Type name here..."
                             ref={(input) => this.itemsInput = input}
                             required />
                         <button className="addItemBtn">Add new</button>
