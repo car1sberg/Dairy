@@ -1,17 +1,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import ItemsList from './ItemsList';
 
 class Items extends React.Component {
-
-    getActiveItem(item) {
-        this.props.getActiveItem(item);
-    }
-
-    deleteItem(item) {
-        this.props.deleteItem(item);
-    }
 
     shouldComponentUpdate(nextProps) {
         return this.props !== nextProps;
@@ -20,25 +12,8 @@ class Items extends React.Component {
     render() {
         const { items, getActiveItem, deleteItem } = this.props;
 
-        return (
-            <ul className="listBlock">
-                {items.map(item => {
-                    return (
-                        <li 
-                            className="item" 
-                            key={item.id}>
-                            <div className="itemTitle" onClick={getActiveItem.bind(this, item)}>
-                                <Link to={`/item/${item.id}`}>{item.title}</Link>
-                                <span className="commentsAmount">{item.comments.length}</span>
-                            </div>
-                            <button className="deleteBtn" onClick={deleteItem.bind(this, item)}>Delete</button>
-                        </li>
-                    )
-                })}
-            </ul> 
-        )
+        return <ItemsList items={items} getActiveItem={getActiveItem} deleteItem={deleteItem} />
     }
-    
 }
 
 Items.propTypes = {

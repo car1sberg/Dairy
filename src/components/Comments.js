@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
+import CommentsList from './CommentsList';
 
 class Comments extends React.Component {
 
@@ -30,18 +31,7 @@ class Comments extends React.Component {
                 
                 {currentItem !== undefined &&
                 <div>
-                    <h2>Comments #{currentItem.id}</h2>
-                    <ul>
-                        {currentItem.comments.map(comment => {
-                            return (
-                                <li key={comment.id} className="commentItem">
-                                    <div className="avatar"></div>
-                                    <div className="commentText">{comment.body}</div>
-                                </li>
-                            )
-                        })}
-                    </ul>
-
+                    <CommentsList currentItem={currentItem} />
                     <div className="textareaBlock">
                         <div className="textareaAvatar"></div>
                         <div className="textarea">

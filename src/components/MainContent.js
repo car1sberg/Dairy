@@ -5,8 +5,9 @@ import Comments from './Comments';
 import { Route, Switch } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import Home from './Home';
-// import BadUrl from './BadUrl';
 import Items from './Items';
+import AddItemInput from './AddItemInput';
+import AddItemBtn from './AddItemBtn';
 
 class MainContent extends React.Component {
     constructor() {
@@ -40,13 +41,8 @@ class MainContent extends React.Component {
                 <div className="itemsBlock">
                     <h2>Items</h2>
                     <form onSubmit={this.addItem.bind(this)} className="itemsForm">
-                        <input 
-                            className="addItemInput"
-                            type="text" 
-                            placeholder="Type name here..."
-                            ref={(input) => this.itemsInput = input}
-                            required />
-                        <button className="addItemBtn">Add new</button>
+                        <AddItemInput input={(input) => this.itemsInput = input} />
+                        <AddItemBtn />
                     </form>
                     <Items 
                         getActiveItem={this.getActiveItem.bind(this)} 
@@ -57,8 +53,6 @@ class MainContent extends React.Component {
                     <Switch>
                         <Route exact path="/Dairy/" component={Home} />
                         <Route path="/item/:id" render={() => <Comments currentItem={currentItem} />} />
-                        {/* it is useless in github.io pages, it handles bad urls itself */}
-                        {/* <Route component={BadUrl} /> */}
                     </Switch>
                 </div>
             </main>
