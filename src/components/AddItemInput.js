@@ -20,10 +20,11 @@ const InputDiv = styled.div`
     }
 `;
 
-function AddItemInput({input}) {
+function AddItemInput({input, onChange}) {
     return (
         <InputDiv>
             <input 
+                onChange={onChange.bind(this)}
                 type="text" 
                 placeholder="Type name here..."
                 ref={input}

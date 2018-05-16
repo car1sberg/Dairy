@@ -53,6 +53,11 @@ body {
   background: white;
 }
 
+.errorMsg {
+  color: red;
+  font-size: 14px;
+}
+
 .textareaBlock {
   display: flex;
   padding-top: 15px;

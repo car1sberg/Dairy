@@ -13,14 +13,21 @@ class MainContent extends React.Component {
     constructor() {
         super();
         this.state = {
-            currentItem: undefined
+            currentItem: undefined,
         }
     }
     
     addItem(e) {
         e.preventDefault();
-        this.props.onAddItem(this.itemsInput.value);
-        this.itemsInput.value = '';
+        
+        if (this.itemsInput.value.trim().length !== 0) {
+            this.props.onAddItem(this.itemsInput.value);
+            this.itemsInput.value = '';
+        }
+        else {
+            this.setState({ inputValue: undefined })
+            this.itemsInput.value = '';
+        }
     }
 
     deleteItem(obj) {
@@ -32,18 +39,29 @@ class MainContent extends React.Component {
         this.setState({ currentItem: item });
     }
 
+    handleInputValue(e) {
+        this.setState({inputValue: e.target.value})
+    }
+
     render() {
-        const {currentItem} = this.state;
+        const {currentItem, inputValue} = this.state;
         const {items} = this.props;
+        const errorMsg = <p className="errorMsg">Item name can not be empty</p>
 
         return (
             <main className="mainBlock">
                 <div className="itemsBlock">
                     <h2>Items</h2>
                     <form onSubmit={this.addItem.bind(this)} className="itemsForm">
-                        <AddItemInput input={(input) => this.itemsInput = input} />
+                        <AddItemInput 
+                            input={(input) => this.itemsInput = input}
+                            onChange={this.handleInputValue.bind(this)}
+                            />
                         <AddItemBtn />
                     </form>
+                    {(inputValue !== undefined && inputValue.length !== 0 && inputValue.trim().length === 0)
+                     && errorMsg
+                    }
                     <Items 
                         getActiveItem={this.getActiveItem.bind(this)} 
                         items={items} 
