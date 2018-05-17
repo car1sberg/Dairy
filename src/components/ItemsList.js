@@ -2,6 +2,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import ConfirmDialog from './Dialog';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 
 const Items = styled.ul`
@@ -74,22 +77,57 @@ const DeleteBtn = styled.button`
     }
 `;
 
-const ItemsList = ({items, getActiveItem, deleteItem}) => {
-    return (
-        <Items>
-            {items.map(item => {
-                return (
-                    <Item key={item.id}>
-                        <ItemLink onClick={getActiveItem.bind(this, item)}>
-                            <Link to={`/item/${item.id}`}>{item.title}</Link>
-                            <CommentsAmount>{item.comments.length}</CommentsAmount>
-                        </ItemLink>
-                        <DeleteBtn onClick={deleteItem.bind(this, item)}>Delete</DeleteBtn>
-                    </Item>
-                )
-            })}
-        </Items> 
-    )
+class ItemsList extends React.Component {
+
+    handleClose() {
+        this.props.closeDialog();
+    }
+
+    handleOpen() {
+        this.props.openDialog();
+    }
+
+    openDialog(obj) {
+        this.props.openDialog();
+    }
+
+    render() {
+        const { items, getActiveItem, deleteItem, dialogStatus } = this.props;
+
+        return (
+            <Items>
+                {items.map(item => {
+                    return (
+                        <Item key={item.id}>
+                            <ItemLink onClick={getActiveItem.bind(this, item)}>
+                                <Link to={`/item/${item.id}`}>{item.title}</Link>
+                                <CommentsAmount>{item.comments.length}</CommentsAmount>
+                            </ItemLink>
+                            <DeleteBtn onClick={this.openDialog.bind(this, item)}>Delete</DeleteBtn>
+                            <ConfirmDialog 
+                                open={dialogStatus}
+                                onClick={deleteItem.bind(this, item)}
+                                handleClose={this.handleClose.bind(this)} />
+                        </Item>
+                    )
+                })}
+            </Items> 
+        )
+    }
 }
 
-export default ItemsList;
+export default withRouter(connect(
+    state => ({
+        dialogStatus: state.confirmDialog
+    }),
+    dispatch => ({
+        openDialog: () => {
+            const payload = true;
+            dispatch({ type: 'IS_OPENED', payload })
+        },
+        closeDialog: () => {
+            const payload = false;
+            dispatch({ type: 'IS_CLOSED',  payload })
+        }
+    })
+)(ItemsList));

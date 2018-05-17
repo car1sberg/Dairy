@@ -9,7 +9,11 @@ import reducer from './reducers';
 
 // we could use redux-persist instead
 const persistedState = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : {}
-const store = createStore(reducer, persistedState);
+const store = createStore(
+    reducer,
+    persistedState,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 store.subscribe(()=>{
     localStorage.setItem('items', JSON.stringify(store.getState()))

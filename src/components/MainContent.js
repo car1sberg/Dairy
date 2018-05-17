@@ -9,6 +9,7 @@ import Items from './Items';
 import AddItemInput from './AddItemInput';
 import AddItemBtn from './AddItemBtn';
 
+
 class MainContent extends React.Component {
     constructor() {
         super();
@@ -31,8 +32,10 @@ class MainContent extends React.Component {
     }
 
     deleteItem(obj) {
+        console.log(obj)
         this.props.onDeleteItem(obj);
         this.setState({currentItem: undefined});
+        this.props.closeDialog();
     }
 
     getActiveItem(item) {
@@ -47,7 +50,7 @@ class MainContent extends React.Component {
         const {currentItem, inputValue} = this.state;
         const {items} = this.props;
         const errorMsg = <p className="errorMsg">Item name can not be empty</p>
-
+        console.log('status: ', this.props.dialogStatus)
         return (
             <main className="mainBlock">
                 <div className="itemsBlock">
@@ -80,7 +83,8 @@ class MainContent extends React.Component {
 
 export default withRouter(connect(
     state => ({
-        items: state.items
+        items: state.items,
+        dialogStatus: state.confirmDialog
     }),
     dispatch => ({
         onAddItem: (itemTitle) => {
@@ -93,6 +97,14 @@ export default withRouter(connect(
         },
         onDeleteItem: (obj) => {
             dispatch({ type: 'DELETE_ITEM',  id: obj.id })
+        },
+        openDialog: () => {
+            const payload = true;
+            dispatch({ type: 'IS_OPENED', payload })
+        },
+        closeDialog: () => {
+            const payload = false;
+            dispatch({ type: 'IS_CLOSED',  payload })
         }
     })
 )(MainContent))
