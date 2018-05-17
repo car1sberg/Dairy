@@ -6,16 +6,16 @@ import Dialog, {
   DialogContent,
   DialogContentText,
 } from 'material-ui/Dialog';
-// import Slide from 'material-ui/transitions/Slide';
+import Slide from 'material-ui/transitions/Slide';
 
-// function Transition(props) {
-//     return <Slide direction="up" {...props} />;
-//   }
+function Transition(props) {
+    return <Slide direction="up" {...props} />;
+  }
 
 const ConfirmDialog = ({open, handleClose, onClick}) => 
     <Dialog
         open={open}
-        // transition={Transition()}
+        TransitionComponent={Transition}
         keepMounted
         onClose={handleClose}
         aria-labelledby="alert-dialog-slide-title"

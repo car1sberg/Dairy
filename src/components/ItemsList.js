@@ -87,10 +87,6 @@ class ItemsList extends React.Component {
         this.props.openDialog();
     }
 
-    openDialog(obj) {
-        this.props.openDialog();
-    }
-
     render() {
         const { items, getActiveItem, deleteItem, dialogStatus } = this.props;
 
@@ -103,7 +99,12 @@ class ItemsList extends React.Component {
                                 <Link to={`/item/${item.id}`}>{item.title}</Link>
                                 <CommentsAmount>{item.comments.length}</CommentsAmount>
                             </ItemLink>
-                            <DeleteBtn onClick={this.openDialog.bind(this, item)}>Delete</DeleteBtn>
+                            <DeleteBtn onClick={
+                                // deleteItem.bind(this, item)
+                                this.handleOpen.bind(this)
+                                }>
+                                Delete
+                            </DeleteBtn>
                             <ConfirmDialog 
                                 open={dialogStatus}
                                 onClick={deleteItem.bind(this, item)}

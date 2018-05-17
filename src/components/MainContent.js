@@ -32,7 +32,6 @@ class MainContent extends React.Component {
     }
 
     deleteItem(obj) {
-        console.log(obj)
         this.props.onDeleteItem(obj);
         this.setState({currentItem: undefined});
         this.props.closeDialog();
@@ -50,7 +49,7 @@ class MainContent extends React.Component {
         const {currentItem, inputValue} = this.state;
         const {items} = this.props;
         const errorMsg = <p className="errorMsg">Item name can not be empty</p>
-        console.log('status: ', this.props.dialogStatus)
+        
         return (
             <main className="mainBlock">
                 <div className="itemsBlock">
