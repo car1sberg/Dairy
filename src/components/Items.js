@@ -12,7 +12,10 @@ class Items extends React.Component {
     render() {
         const { items, getActiveItem, deleteItem } = this.props;
 
-        return <ItemsList items={items} getActiveItem={getActiveItem} deleteItem={deleteItem} />
+        return <ItemsList 
+            items={items}
+            getActiveItem={getActiveItem}
+            deleteItem={deleteItem}/>
     }
 }
 
