@@ -1,7 +1,9 @@
 
 const IS_OPENED = 'IS_OPENED';
 const IS_CLOSED = 'IS_CLOSED';
-const initialState = false;
+const initialState = {
+    isOpened: false
+};
 
 export default function confirmDialog(state = initialState, action) {
 

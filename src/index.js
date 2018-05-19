@@ -11,6 +11,7 @@ import reducer from './reducers';
 const persistedState = localStorage.getItem('items') ? JSON.parse(localStorage.getItem('items')) : {}
 const store = createStore(
     reducer,
+    // applyMiddleware(logger),
     persistedState,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );

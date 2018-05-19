@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
@@ -21,7 +20,6 @@ const Item = styled.li`
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #f2f2f2;
-
     &::before {
         height: 100%;
         content: '';
@@ -34,7 +32,6 @@ const Item = styled.li`
         opacity: 0;
         transition: all .2s linear;
     }
-
     &:hover::before {
         opacity: 1;
     }
@@ -70,7 +67,6 @@ const DeleteBtn = styled.button`
     cursor: pointer;
     outline: none;
     transition: all .2s linear;
-
     &:hover {
         background: #ff305a;
         color: white;
@@ -83,12 +79,19 @@ class ItemsList extends React.Component {
         this.props.closeDialog();
     }
 
-    handleOpen() {
-        this.props.openDialog();
+    handleOpenDialog(obj) {
+        this.props.openDialog(obj);
     }
 
     render() {
-        const { items, getActiveItem, deleteItem, dialogStatus } = this.props;
+        const {
+            items,
+            getActiveItem,
+            deleteItem,
+            dialogStatus,
+            currentId,
+            currentTitle
+        } = this.props;
 
         return (
             <Items>
@@ -99,35 +102,41 @@ class ItemsList extends React.Component {
                                 <Link to={`/item/${item.id}`}>{item.title}</Link>
                                 <CommentsAmount>{item.comments.length}</CommentsAmount>
                             </ItemLink>
-                            <DeleteBtn onClick={
-                                // deleteItem.bind(this, item)
-                                this.handleOpen.bind(this)
-                                }>
+                            <DeleteBtn onClick={this.handleOpenDialog.bind(this, item)}>
                                 Delete
                             </DeleteBtn>
-                            <ConfirmDialog 
-                                open={dialogStatus}
-                                onClick={deleteItem.bind(this, item)}
-                                handleClose={this.handleClose.bind(this)} />
                         </Item>
                     )
                 })}
-            </Items> 
+                <ConfirmDialog 
+                    open={dialogStatus}
+                    title={currentTitle}
+                    onClick={deleteItem.bind(this, currentId)}
+                    handleClose={this.handleClose.bind(this)} />
+            </Items>
         )
     }
 }
 
 export default withRouter(connect(
     state => ({
-        dialogStatus: state.confirmDialog
+        dialogStatus: state.confirmDialog.isOpened,
+        currentId: state.confirmDialog.idToDelete,
+        currentTitle: state.confirmDialog.title
     }),
     dispatch => ({
-        openDialog: () => {
-            const payload = true;
+        openDialog: (item) => {
+            const payload = {
+                idToDelete: item.id,
+                isOpened: true,
+                title: item.title
+            }
             dispatch({ type: 'IS_OPENED', payload })
         },
         closeDialog: () => {
-            const payload = false;
+            const payload = {
+                isOpened: false
+            }
             dispatch({ type: 'IS_CLOSED',  payload })
         }
     })

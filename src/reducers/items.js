@@ -53,7 +53,7 @@ export default function items(state = initialState, action) {
                action.payload
             ];
         case DELETE_ITEM:
-           return state.filter(item => item.id !== action.id);
+           return state.filter(item => item.id !== action.payload);
         case ADD_COMMENT :
             const active = state.find(item => item.id === action.itemId)
             const comment = Object.assign({}, action.payload);
