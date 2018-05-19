@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import ConfirmDialog from './Dialog';
@@ -83,13 +83,13 @@ class ItemsList extends React.Component {
         this.props.closeDialog();
     }
 
-    handleOpen() {
-        this.props.openDialog();
+    handleOpenDialog(id) {
+        this.props.openDialog(id);
     }
 
     render() {
         const { items, getActiveItem, deleteItem, dialogStatus } = this.props;
-
+        console.log(this.props.dialogStatus)
         return (
             <Items>
                 {items.map(item => {
@@ -101,18 +101,18 @@ class ItemsList extends React.Component {
                             </ItemLink>
                             <DeleteBtn onClick={
                                 // deleteItem.bind(this, item)
-                                this.handleOpen.bind(this)
+                                this.handleOpenDialog.bind(this, item.id)
                                 }>
                                 Delete
                             </DeleteBtn>
-                            <ConfirmDialog 
-                                open={dialogStatus}
-                                onClick={deleteItem.bind(this, item)}
-                                handleClose={this.handleClose.bind(this)} />
                         </Item>
                     )
                 })}
-            </Items> 
+                <ConfirmDialog 
+                    open={dialogStatus === this.props.dialogStatus}
+                    onClick={deleteItem.bind(this, this.props.dialogStatus)}
+                    handleClose={this.handleClose.bind(this)} />
+            </Items>
         )
     }
 }
@@ -122,12 +122,14 @@ export default withRouter(connect(
         dialogStatus: state.confirmDialog
     }),
     dispatch => ({
-        openDialog: () => {
-            const payload = true;
+        openDialog: (id) => {
+            const payload = id;
+
             dispatch({ type: 'IS_OPENED', payload })
         },
         closeDialog: () => {
             const payload = false;
+
             dispatch({ type: 'IS_CLOSED',  payload })
         }
     })
