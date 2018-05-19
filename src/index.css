@@ -21,8 +21,11 @@ body {
 }
 
 .itemsBlock {
-  height: max-content;
-  min-height: 400px;
+  height: 400px;
+  overflow-y: auto;
+  /* height: max-content; */
+  /* min-height: 400px;
+  max-height: 400px; */
   width: 100%;
   background-color: white;
   margin: 0 10px;
@@ -84,3 +87,15 @@ body {
   height: 50px;
   background-color: #e6e6e6;
 }
+
+/* .md-dialog-container {
+  position: fixed;
+  top: 0 !important;
+  overflow: hidden;
+}
+
+.md-dialog-is-showing {
+  position: fixed;
+  top: 0 !important;
+  overflow: hidden;
+} */
