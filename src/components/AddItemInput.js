@@ -6,7 +6,6 @@ import styled from 'styled-components';
 const InputDiv = styled.div`
 
     & input {
-        width: 265px;
         color: #2b2f3e;
         height: 37px;
         font-size: 16px;
@@ -17,6 +16,12 @@ const InputDiv = styled.div`
         border: 1px solid #ccc;
         outline: none;
         box-sizing: border-box;
+    }
+
+    @media only screen and (min-width: 900px) {
+        & input {
+            width: 265px;
+        }
     }
 `;
 

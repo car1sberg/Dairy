@@ -64,7 +64,7 @@ class MainContent extends React.Component {
                     {(inputValue !== undefined && inputValue.length !== 0 && inputValue.trim().length === 0)
                      && errorMsg
                     }
-                    <Items 
+                    <Items
                         getActiveItem={this.getActiveItem.bind(this)} 
                         items={items} 
                         deleteItem={this.deleteItem.bind(this)} />
