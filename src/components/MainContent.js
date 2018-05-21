@@ -31,8 +31,8 @@ class MainContent extends React.Component {
         }
     }
 
-    deleteItem(obj) {
-        this.props.onDeleteItem(obj);
+    deleteItem(id) {
+        this.props.onDeleteItem(id);
         this.setState({currentItem: undefined});
         this.props.closeDialog();
     }
@@ -64,7 +64,7 @@ class MainContent extends React.Component {
                     {(inputValue !== undefined && inputValue.length !== 0 && inputValue.trim().length === 0)
                      && errorMsg
                     }
-                    <Items 
+                    <Items
                         getActiveItem={this.getActiveItem.bind(this)} 
                         items={items} 
                         deleteItem={this.deleteItem.bind(this)} />
@@ -82,8 +82,7 @@ class MainContent extends React.Component {
 
 export default withRouter(connect(
     state => ({
-        items: state.items,
-        dialogStatus: state.confirmDialog
+        items: state.items
     }),
     dispatch => ({
         onAddItem: (itemTitle) => {
@@ -94,15 +93,13 @@ export default withRouter(connect(
             };
             dispatch({ type: 'ADD_ITEM', payload })
         },
-        onDeleteItem: (obj) => {
-            dispatch({ type: 'DELETE_ITEM',  id: obj.id })
-        },
-        openDialog: () => {
-            const payload = true;
-            dispatch({ type: 'IS_OPENED', payload })
+        onDeleteItem: (id) => {
+            dispatch({ type: 'DELETE_ITEM',  payload: id })
         },
         closeDialog: () => {
-            const payload = false;
+            const payload = {
+                isOpened: false
+            }
             dispatch({ type: 'IS_CLOSED',  payload })
         }
     })

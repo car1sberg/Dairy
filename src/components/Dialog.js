@@ -11,7 +11,7 @@ function Transition(props) {
     return <Slide direction="up" {...props} />;
   }
 
-const ConfirmDialog = ({open, handleClose, onClick}) => 
+const ConfirmDialog = ({open, handleClose, onClick, title}) => 
     <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -22,7 +22,7 @@ const ConfirmDialog = ({open, handleClose, onClick}) =>
         >
         <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
-                Do you realy want to delete it?
+                Do you realy want to delete the {title} item?
             </DialogContentText>
         </DialogContent>
         <DialogActions>
